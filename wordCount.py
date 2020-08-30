@@ -24,20 +24,6 @@ def is_text_file(filename):
         return True
 
 
-def does_file_exist(filename):
-    """
-    verify if given file exists
-
-    :param filename: (string) name of some file
-    :return: boolean
-    """
-
-    if not os.path.exists(filename):
-        print("text file %s doesn't exist!" % filename)
-        return False
-    return True
-
-
 def verify_args():
     """
     verify command line args are a total of two text files and they exist in the project. if
@@ -65,8 +51,8 @@ def verify_args():
         exit()
 
     # verify input file exists
-    if not does_file_exist(input_file):
-        print("Exiting!")
+    if not os.path.exists(input_file):
+        print("text file %s doesn't exist! Exiting" % input_file)
         exit()
 
     return input_file, output_file
