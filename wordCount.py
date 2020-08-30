@@ -14,6 +14,7 @@
 
 import sys  # command line arguments
 import re   # regular expression tools
+import os   # checking if file exists
 
 
 def is_text_file(filename):
@@ -42,7 +43,10 @@ def does_file_exist(filename):
         boolean
     """
 
-    pass
+    if not os.path.exists(filename):
+        print("text file %s doesn't exist!" % filename)
+        return False
+    return True
 
 
 def create_file(filename):
@@ -53,18 +57,19 @@ def create_file(filename):
         filename: (string) a text file
     """
 
-    pass
+    print("file created")
 
 
 def verify_args():
     """
-    verify command line args are a total of two text files
+    verify command line args are a total of two text files and they exist in the project. if
+    output file does not exist, create it
 
     :return:
         tuple of strings representing a valid input and output file respectively
     """
 
-    # set input and output files
+    # verify there's only two additional args (besides python file)
     if len(sys.argv) != 3:
         print("Correct usage: wordCount.py <input text file> <output text file>")
         exit()
@@ -72,9 +77,25 @@ def verify_args():
     input_file = sys.argv[1]
     output_file = sys.argv[2]
 
+    # input and output file cannot be the same
+    if input_file == output_file:
+        print("Input and Output files cannot be the same")
+        exit()
+
+    # verify args files are text files
     if not is_text_file(input_file) or not is_text_file(output_file):
         print("Correct usage: wordCount.py <input text file>.txt <output text file>.txt")
         exit()
+
+    # verify input file exists
+    if not does_file_exist(input_file):
+        print("Exiting!")
+        exit()
+
+    # verify output file exists else create it
+    if not does_file_exist(output_file):
+        print("creating output file...")
+        create_file(output_file)
 
     return input_file, output_file
 
