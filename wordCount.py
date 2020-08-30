@@ -13,20 +13,57 @@
 # 6. Final testing and complete submission!
 
 import sys  # command line arguments
-import re  # regular expression tools
+import re   # regular expression tools
 
 
-# verify the file extension is .txt
 def is_text_file(filename):
+    """
+    verify the file extension is .txt
+
+    :param
+        filename: (string) a file with some or no extension
+    :return:
+        boolean
+    """
+
     if not re.findall(r'\.txt$', filename, re.IGNORECASE):
         return False
     else:
         return True
 
 
-# verify command line args are two and text files
-# @return - (tuple) args input and output filename
+def does_file_exist(filename):
+    """
+    verify if given file exists
+
+    :param
+        filename: (string) name of some file
+    :return:
+        boolean
+    """
+
+    pass
+
+
+def create_file(filename):
+    """
+    create text file with given name
+
+    :param
+        filename: (string) a text file
+    """
+
+    pass
+
+
 def verify_args():
+    """
+    verify command line args are a total of two text files
+
+    :return:
+        tuple of strings representing a valid input and output file respectively
+    """
+
     # set input and output files
     if len(sys.argv) != 3:
         print("Correct usage: wordCount.py <input text file> <output text file>")
@@ -43,8 +80,12 @@ def verify_args():
 
 
 def main():
-    args_files = verify_args()
-    print(args_files)
+    """
+    main method
+    """
+    input_file, output_file = verify_args()
+    print(input_file)
+    print(output_file)
 
 
 main()
