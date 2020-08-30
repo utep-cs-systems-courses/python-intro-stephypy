@@ -1,7 +1,7 @@
 # Author: Stephanie Galvan
 # Class: Theory of Operating Systems
 # Assignment 0: Python Intro
-# Python version: 3.8.5
+# Python version: 3.7.0
 # Description: Given a text file, outputs a file with the total number of times each word in the given file
 # appears (case insensitive) in alphabetical order
 
@@ -26,8 +26,7 @@ def is_text_file(filename):
 
 def verify_args():
     """
-    verify command line args are a total of two text files and they exist in the project. if
-    output file does not exist, create it
+    verify command line args are a total of two text files and they exist in the project
 
     :return: tuple of strings representing a valid input and output file respectively
     """
@@ -92,7 +91,7 @@ def write_to_file(output_file, word_count):
     :param word_count: (dict) dictionary with words and their individual counts
     """
 
-    with open(output_file, "w+") as file:
+    with open(output_file, "w") as file:
         for curr_word_count in word_count:
             file.write(curr_word_count[0] + " " + str(curr_word_count[1]) + '\n')
 
@@ -106,5 +105,5 @@ def main():
     write_to_file(output_file, word_count)
 
 
-# start (:
-main()
+if __name__ == "__main__":
+    main()
