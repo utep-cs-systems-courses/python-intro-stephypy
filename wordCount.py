@@ -6,15 +6,15 @@
 
 # TODO: @stephypy
 # 1. [DONE] Verify command line args are  valid (only 2 args, they're both text files)
-# 2. Verify the input file exist; if output file doesnt exist then create it
+# 2. [DONE] Verify the input file exist; if output file doesnt exist then create it
 # 3. Set a re to only read words (no case sensitive, ignore punctuation)
 # 4. Read input file and save each word in dict with total number of appearances
 # 5. Sort dict and save contents on output file (word <space> num per line)
 # 6. Final testing and complete submission!
 
 import sys  # command line arguments
-import re   # regular expression tools
-import os   # checking if file exists
+import re  # regular expression tools
+import os  # checking if file exists
 
 
 def is_text_file(filename):
@@ -57,7 +57,7 @@ def create_file(filename):
         filename: (string) a text file
     """
 
-    print("file created")
+    with open(filename, 'w+'): pass
 
 
 def verify_args():
