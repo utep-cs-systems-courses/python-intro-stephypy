@@ -7,8 +7,8 @@
 # TODO: @stephypy
 # 1. [DONE] Verify command line args are  valid (only 2 args, they're both text files)
 # 2. [DONE] Verify the input file exist; if output file doesnt exist then create it
-# 3. Set a re to only read words (no case sensitive, ignore punctuation)
-# 4. Read input file and save each word in dict with total number of appearances
+# 3. [DONE] Set a re to only read words (no case sensitive, ignore punctuation)
+# 4. [DONE] Read input file and save each word in dict with total number of appearances
 # 5. Sort dict and save contents on output file (word <space> num per line)
 # 6. Final testing and complete submission!
 
@@ -100,13 +100,38 @@ def verify_args():
     return input_file, output_file
 
 
+def count_words(input_file):
+    """
+
+    :param
+        input_file:
+    :return:
+    """
+
+    total_count = dict()
+    with open(input_file, 'r') as file:
+        for line in file:
+            # split by non alpha numeric characters
+            for word in re.split('[^a-zA-Z]', line):
+                word = word.lower()
+                if word in total_count:
+                    total_count[word] += 1
+                else:
+                    total_count[word] = 1
+    return total_count
+
+
+def write_to_file(output_file, word_count):
+    pass
+
+
 def main():
     """
     main method
     """
     input_file, output_file = verify_args()
-    print(input_file)
-    print(output_file)
+    word_count = count_words(input_file)
+    write_to_file(output_file, word_count)
 
 
 main()
