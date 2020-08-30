@@ -4,14 +4,6 @@
 # Description: Given a text file, outputs a file with the total number of times each word in the given file
 # appears (case insensitive) in alphabetical order
 
-# TODO: @stephypy
-# 1. [DONE] Verify command line args are  valid (only 2 args, they're both text files)
-# 2. [DONE] Verify the input file exist; if output file doesnt exist then create it
-# 3. [DONE] Set a re to only read words (no case sensitive, ignore punctuation)
-# 4. [DONE] Read input file and save each word in dict with total number of appearances
-# 5. Sort dict and save contents on output file (word <space> num per line)
-# 6. Final testing and complete submission!
-
 import sys  # command line arguments
 import re  # regular expression tools
 import os  # checking if file exists
@@ -21,10 +13,8 @@ def is_text_file(filename):
     """
     verify the file extension is .txt
 
-    :param
-        filename: (string) a file with some or no extension
-    :return:
-        boolean
+    :param filename: (string) a file with some or no extension
+    :return: boolean
     """
 
     if not re.findall(r'\.txt$', filename, re.IGNORECASE):
@@ -37,10 +27,8 @@ def does_file_exist(filename):
     """
     verify if given file exists
 
-    :param
-        filename: (string) name of some file
-    :return:
-        boolean
+    :param filename: (string) name of some file
+    :return: boolean
     """
 
     if not os.path.exists(filename):
@@ -49,24 +37,12 @@ def does_file_exist(filename):
     return True
 
 
-def create_file(filename):
-    """
-    create text file with given name
-
-    :param
-        filename: (string) a text file
-    """
-
-    with open(filename, 'w+'): pass
-
-
 def verify_args():
     """
     verify command line args are a total of two text files and they exist in the project. if
     output file does not exist, create it
 
-    :return:
-        tuple of strings representing a valid input and output file respectively
+    :return: tuple of strings representing a valid input and output file respectively
     """
 
     # verify there's only two additional args (besides python file)
@@ -92,20 +68,15 @@ def verify_args():
         print("Exiting!")
         exit()
 
-    # verify output file exists else create it
-    if not does_file_exist(output_file):
-        print("creating output file...")
-        create_file(output_file)
-
     return input_file, output_file
 
 
 def count_words(input_file):
     """
+    count the times of appearances of all words (case insensitive and ignoring punctuation) given a file
 
-    :param
-        input_file:
-    :return:
+    :param input_file: (string) file which will be read
+    :return: a sorted dict in the format of {word} : {count}
     """
 
     total_count = dict()
@@ -114,15 +85,29 @@ def count_words(input_file):
             # split by non alpha numeric characters
             for word in re.split('[^a-zA-Z]', line):
                 word = word.lower()
-                if word in total_count:
+                # ignore whitespaces
+                if word.isspace() or len(word) < 1:
+                    continue
+                # updating/adding occurrences
+                elif word in total_count:
                     total_count[word] += 1
                 else:
                     total_count[word] = 1
-    return total_count
+    sorted_total_count = sorted(total_count.items())
+    return sorted_total_count
 
 
 def write_to_file(output_file, word_count):
-    pass
+    """
+    save all contents of the dict into the output file in which the word and its count is separated by a space
+
+    :param output_file: (string) file that will contain all the word count
+    :param word_count: (dict) dictionary with words and their individual counts
+    """
+
+    with open(output_file, "w+") as file:
+        for curr_word_count in word_count:
+            file.write(curr_word_count[0] + " " + str(curr_word_count[1]) + '\n')
 
 
 def main():
@@ -134,4 +119,5 @@ def main():
     write_to_file(output_file, word_count)
 
 
+# start (:
 main()
